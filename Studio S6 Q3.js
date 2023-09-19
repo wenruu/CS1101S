@@ -42,10 +42,9 @@ function makeup_amount(x, coins) {
     const combi_A = makeup_amount(x, tail(coins));
     // Combinations that do not use the head coin
     // for the remaining amount.
-    const combi_B = null;
+    const combi_B = makeup_amount(x - head(coins), tail(coins));
     // Combinations that use the head coin.
-    const combi_C = map(x => pair(head(coins), x), 
-                    makeup_amount(x - head(coins), tail(coins)));
+    const combi_C = map(x => pair(head(coins), x), combi_B);
     return append(combi_A, combi_C);
     }
 }
@@ -55,3 +54,46 @@ display_list(makeup_amount(22, list(1,2,2,5,5,10)));
 // list(1, 20, 1), list(1, 10, 5, 5, 1),
 // list(1, 10, 5, 1, 5))
 map(x => 5 + 1, null);
+
+//ICQ
+//Q1
+function remove_duplicates2(lst) {
+    return accumulate(
+        (x, xs) => is_null(member(x, xs))
+        ? pair(x, xs)
+        : xs,
+        null,
+        lst);
+}
+
+//Q2
+function subsets(xs) {
+    if (is_null(xs)) {
+        return list(null);
+    } else {
+       const A = subsets(tail(xs));
+       const B = map(x => pair(head(xs), x), A);
+       return append(A, B);
+    }
+}
+
+subsets(list(1, 2, 3));
+  // Result: list(list(),
+  //              list(1), list(2), list(3),
+  //              list(1,2), list(1,3), list(2,3),
+  //              list(1,2,3))
+  
+// Q3
+function permutations(s) {
+    return is_null(s)
+    ? list(null)
+    : accumulate(append, null,
+        map(x => map(p => pair(x, p),
+                    permutations(remove(x,s))),
+        s));
+}
+
+display_list(permutations(list(1, 2, 3)));
+  // Result: list(list(1,2,3), list(1,3,2),
+  //              list(2,1,3), list(2,3,1),
+  //              list(3,1,2), list(3,2,1))
