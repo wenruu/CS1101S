@@ -1,3 +1,18 @@
+// Studio S6
+// Q1
+function my_map(f, xs) {
+// this should be a one-liner
+    return accumulate((x, y) => pair(f(x), y), null, xs);
+}
+
+//Q2
+function remove_duplicates(lst) { 
+    return is_null(lst)
+           ? null
+           : pair(head(lst), remove_duplicates(filter(x => x !== head(lst), lst)));
+}
+
+//Q3
 /*Your friend Louis Reasoner has a pocket full of change. He wants to buy a snack that will
 cost him x cents, and he wants to know all the ways in which he can use his change to
 make up that amount. Please help him in writing a function which takes as parameters the
@@ -27,8 +42,8 @@ function makeup_amount(x, coins) {
     }
 }
 
-display_list(makeup_amount(10, list(5,5,10)));
+display_list(makeup_amount(22, list(1,2,2,5,5,10)));
 // Result: list(list(20, 1, 1), list(10, 5, 1, 5, 1), list(1, 20, 1),
 // list(1, 20, 1), list(1, 10, 5, 5, 1),
 // list(1, 10, 5, 1, 5))
-map(x => 5 + 1, list(null));
+map(x => 5 + 1, null);
