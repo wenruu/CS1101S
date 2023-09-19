@@ -88,8 +88,11 @@ function permutations(s) {
     return is_null(s)
     ? list(null)
     : accumulate(append, null,
-        map(x => map(p => pair(x, p),
+        map(x => map(p => pair(x, p), 
+        // first map takes starting permutation number
+        // second map creates list using starting and rest of list
                     permutations(remove(x,s))),
+        // permutates on remainder of list
         s));
 }
 
