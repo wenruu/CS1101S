@@ -5,12 +5,20 @@ function my_map(f, xs) {
     return accumulate((x, y) => pair(f(x), y), null, xs);
 }
 
+my_map(x => x + 1, list(1, 2, 3));
+// Result: list(2, 3, 4)
+
 //Q2
 function remove_duplicates(lst) { 
     return is_null(lst)
            ? null
            : pair(head(lst), remove_duplicates(filter(x => x !== head(lst), lst)));
 }
+
+remove_duplicates(list(1, 2, 3, 4, 4, 3, 2, 1, 2));
+// Result: list(1, 2, 3, 4)
+remove_duplicates(list("a", "x", "b", "c", "c", "b", "d"));
+// Result: list("a", "x", "b", "c", "d")
 
 //Q3
 /*Your friend Louis Reasoner has a pocket full of change. He wants to buy a snack that will
