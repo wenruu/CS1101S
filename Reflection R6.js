@@ -87,7 +87,8 @@ merge_sort(list(7, 6, 3, 8, 4, 6, 5, 9, 8, 3, 1, 5, 2));
 
 //(a) Θ(n)
 
-//(b) Θ(n)
+//(b) merge_sort takes logn levels, where each level has n steps -> logn n
+// merge has logn levels where each level has n steps -> logn n again 
 
 
 
