@@ -25,3 +25,5 @@ function bubblesort_list(L) {
 const LL = list(3, 5, 2, 4, 1);
 bubblesort_list(LL);
 LL; // should show [1, [2, [3, [4, [5, null]]]]]
+
+//Q3
