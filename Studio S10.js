@@ -1,6 +1,6 @@
 //2a
 // O(n^2) bc n + (n - 1) + (n - 2) + ... + 2 + 1 ~= n^2
-//2b 
+//2b
 function bubblesort_list(L) {
     // Your solution here.
     let count = 0;
@@ -29,7 +29,7 @@ LL; // should show [1, [2, [3, [4, [5, null]]]]]
 //Q3a
 // yes b/c same as n choose k
 
-//Q3b
+Q3b
 function mcc(n, k) {
     // Your solution here.
     if (n < 0 || k === 0) {
