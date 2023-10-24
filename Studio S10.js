@@ -37,7 +37,7 @@ function mcc(n, k) {
     } else if (n === 0) {
         return 1;
     } else if (read(n, k) !== undefined) {
-        return read(n,k);
+        return read(n, k);
     } else {
         const val = mcc(n, k - 1) + mcc(n - first_denomination(k),
                                         k);
