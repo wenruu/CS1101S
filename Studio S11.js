@@ -37,3 +37,10 @@ function coeffs_to_series(list_of_coeffs) {
     }
     return iter(list_of_coeffs);
 }
+const ones_stream = pair(1, () => ones_stream);
+const non_neg_integers = pair(0, () => add_streams(ones_stream, non_neg_integers));
+function fun_to_series(fun) {
+    return stream_map(fun, non_neg_integers);
+}
+// S1:
+const S1 = fun_to_series(x => 1);
