@@ -47,6 +47,58 @@ function increment(tn) {
 }
 //increment(list(4, null, list(4,6), 8));
 
+//3A.
+function array_with_zeroes(n) {
+    let result = [];
+    for (let i = 0; i < n; i = i + 1) {
+        result[i] = 0;
+    }
+    return result;
+}
+//array_with_zeroes(5);
+
+//3B.
+function make_histogram(arr, max) {
+    let result = array_with_zeroes(max + 1);
+    for (let i = 0; i < array_length(arr); i = i + 1) {
+        result[arr[i]] = result[arr[i]] + 1;
+    }
+    return result;
+}
+//testing:
+// let unsorted = [5, 1, 10, 2, 1, 5, 7, 3];
+// let max = 12;
+// make_histogram(unsorted, max);
+
+//3C. 
+function enter_copies(arr, n, v, start) {
+    let temp = start;
+    for (temp; temp < start + n; temp = temp + 1) {
+        arr[temp] = v;
+    }
+    return arr;
+}
+// let some_array = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+// enter_copies(some_array, 4, 8, 2);
+
+//3D.
+function generate_sorted(arr) {
+    let curr = 0;
+    let result = [];
+    for (let i = 0; i < array_length(arr); i = i + 1) {
+        if (arr[i] === 0) {
+            continue;
+        } else {
+            enter_copies(result, arr[i], i, curr);
+            curr = curr + arr[i];
+        }
+    }
+    return result;
+}
+//testing
+// generate_sorted([0, 2, 1, 1, 0, 2, 0, 1, 0, 0, 1, 0, 0]);
+
+
 
 
 
