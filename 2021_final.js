@@ -3,7 +3,7 @@
 //2.C
 //3.B log(n^2) = 2logn = logn
 //4.E
-//5.C 2^logn ~~ n?
+//5.C 2^logn ~~ n? //WRONG
 //6.
 function remove_elem(L, pos) {
     return pos === 0 ? tail(L) : pair(head(L), remove_elem(tail(L), pos - 1));
@@ -34,10 +34,10 @@ function d_remove_elem(L, pos) {
 // L; // equals list(10, 11, 13)
 //8.F
 //9.A
-//10. (x,y) => adjoin_rings(x,y), head(ns), ns
+//10. (x,y) => adjoin_rings(x,y), head(ns), ns //WRONG
 
 //11. 1.Source 2.JavaScript 3.x86 4.x86 5.JavaScript 6.JavaScript 7.TypeScript
-    //8.TypeScript 9.ARM8 10.ARM8 11.ARM8 12.ARM8
+    //8.TypeScript 9.ARM8 10.ARM8 11.ARM8 12.ARM8 //REVISE TOMBSTONE //WRONG
 //12. 
 function until_zero(x) {
     return x === 0 ? "Hello" : until_zero;
@@ -60,6 +60,10 @@ function sumsum(x) {
 function sum_list(L) {
     return accumulate(((x, y) => x === 0 ? y : y === 0 ? sumsum(x)(0) 
                                          : sumsum(x)(y)(0)), 0, L);
+    /* BETTER WAY:
+    return accumulate((x,add) => x === 0 ? add : add(x), sumsum, L)(0);
+    -> uses sumsum as intial, applies all numbers onto sumsum, then calls (0) 
+        when done */
 }
 //testing
 // const L = list(10, 0, 20, 0, 0, 30, 40);
@@ -104,6 +108,13 @@ function make_sum_area_table(M) {
                     }
                 }
             }
+            /* MUCH MUCH MUCH BETTER IMPLEMENTATION:
+            S[r][c] = M[r][c] + fill_SAT(r - 1, c) +
+                                fill_SAT(r, c - 1) - fill_SAT(r - 1, c - 1);
+            return S[r][c];
+            ->  starts at bottom most entry and uses wishful thinking to fill in
+                all the other holes recursively (recursive process)
+            */
         }
     }
     fill_SAT(ROWS - 1, COLS - 1);
