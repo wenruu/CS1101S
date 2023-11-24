@@ -98,7 +98,14 @@ function generate_sorted(arr) {
 //testing
 // generate_sorted([0, 2, 1, 1, 0, 2, 0, 1, 0, 0, 1, 0, 0]);
 
+//3E.
+// n.
 
+//5A.
+function evaluate(component, env) {
+    return is_lambda_expression(component) 
+           ? ()
+}
 
 
 
