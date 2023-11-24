@@ -19,9 +19,9 @@ function similar(tn1, tn2) {
 //         list(5, list(3,7))); // false (too big difference)
 
 //1C.
-function differences(tn1, tn2) {
-    return is_null(tn1) && is_null(tn2) ? 0
-           : is_number(tn1) && is_number(tn2)
+function differences(tn1, tn2) { //both are similar trees, no need to do this:
+    return is_null(tn1) && is_null(tn2) ? 0 //checking for one is_null is enough
+           : is_number(tn1) && is_number(tn2) //same, check for one is_num
            ? (tn1 === tn2 ? 0 : 1)
            : is_list(tn1) && is_list(tn2)
            ? differences(head(tn1), head(tn2)) +
@@ -106,6 +106,10 @@ function evaluate(component, env) {
     return is_lambda_expression(component) 
            ? ()
 }
+//not relevant?
+//5C1. 4
+//5C2. 6
+//5C3. error - undeclared x.
 
 
 
