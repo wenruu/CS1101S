@@ -116,4 +116,71 @@ function make_sum_area_table(M) {
 // make_sum_area_table(M);
 
 //17.
+function fast_submatrix_sum(S, min_row, min_col, max_row, max_col) {
+    function get_SAT_elem(r, c) {
+        return (r < 0 || c < 0) ? 0 : S[r][c];
+    }
+    /* YOUR SOLUTION */
+    return get_SAT_elem(max_row, max_col) 
+           - get_SAT_elem(min_row - 1, max_col)
+           - get_SAT_elem(max_row, min_col - 1) 
+           + get_SAT_elem(min_row - 1, min_col - 1);
+}
+// const M = [[1, 2, 3, 4],
+// [2, 3, 4, 5],
+// [3, 4, 5, 6]];
+// const S = make_sum_area_table(M);
+// S is now [[1, 3, 6, 10],
+// [3, 8, 15, 24],
+// [6, 15, 27, 42]]
+//fast_submatrix_sum(S, 1, 2, 1, 2); // returns 4
+//fast_submatrix_sum(S, 0, 0, 2, 3); // returns 42
+//fast_submatrix_sum(S, 1, 1, 2, 2); // returns 16
+// fast_submatrix_sum(S, 0, 1, 2, 2); // returns 21
 
+//18.
+function hold_stream(xs) {
+    return is_null(tail(xs)) ? pair(head(xs), () => hold_stream(xs))
+                             : pair(head(xs), () => hold_stream(tail(xs)));
+}
+//testing
+//eval_stream(hold_stream(enum_list(1, 5)), 7);
+
+//19.
+function search_stream(xs, pos, x) {
+    return is_null(xs) ? false
+                       :pos < 0
+                       ? false
+                       : head(xs) === x
+                       ? true
+                       : search_stream(stream_tail(xs), pos - 1, x);
+}
+//testing
+// const ones = pair(1, () => ones);
+// const integers = pair(1, () => stream_map(x => x + 1, integers));
+// const finite_stream = enum_stream(1, 5);
+//search_stream(ones, 0, 1); // returns true
+//search_stream(ones, 0, 2); // returns false
+//search_stream(integers, 4, 4); // returns true
+// search_stream(integers, 4, 5); // returns true (corrected via announcement)
+// search_stream(integers, 3, 5); // returns false
+// search_stream(finite_stream, 6, 10); // returns false
+
+//20.H
+//21.C
+//22.
+const square = x => x * x;
+const is_even = n => n % 2 === 0;
+function fast_and_furious_expt(b, n) {
+    function ffe(bb, nn, cont) {
+        /* YOUR SOLUTION */
+        return nn === 1
+               ? cont(bb)
+               : is_even(nn)
+               ? ffe(square(bb), nn / 2, cont) 
+               : ffe(bb, nn - 1, x => cont(bb) * x);
+    }
+    return ffe(b, n, x => x);
+}
+//testing
+//fast_and_furious_expt(4, 10);
