@@ -159,8 +159,7 @@ function hold_stream(xs) {
 
 //19.
 function search_stream(xs, pos, x) {
-    return is_null(xs) ? false
-                       :pos < 0
+    return is_null(xs) || pos < 0
                        ? false
                        : head(xs) === x
                        ? true
@@ -177,12 +176,12 @@ function search_stream(xs, pos, x) {
 // search_stream(integers, 3, 5); // returns false
 // search_stream(finite_stream, 6, 10); // returns false
 
-//20.H
-//21.C
+//20.H //WRONG
+//21.C //WRONG
 //22.
 const square = x => x * x;
 const is_even = n => n % 2 === 0;
-function fast_and_furious_expt(b, n) {
+function fast_and_furious_expt(b, n) { //SEMI WRONG - does not cover 0 base case
     function ffe(bb, nn, cont) {
         /* YOUR SOLUTION */
         return nn === 1
@@ -190,6 +189,15 @@ function fast_and_furious_expt(b, n) {
                : is_even(nn)
                ? ffe(square(bb), nn / 2, cont) 
                : ffe(bb, nn - 1, x => cont(bb) * x);
+        /* MODEL ANSWER:
+        return nn === 0 //returns 1 if nn = 0
+               ? cont(1) //applies accumulated cont operators to 1
+               : is_even(nn)
+               ? ffe(bb, nn / 2, x => cont(square(x)))
+               : ffe(bb, nn - 1, x => cont(bb * x));
+         -> makes use of fact that base case for b^0 is 1 and when nn is 1, 
+            nn is odd thus you can apply bb * x to start with bb.
+        */
     }
     return ffe(b, n, x => x);
 }
