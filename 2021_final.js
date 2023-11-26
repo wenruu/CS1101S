@@ -1,6 +1,6 @@
 //2021 finals
 //1. A 
-//2. A
+//2. A WRONG - B 
 //3. B
 //4. 
 function accumulate_iter(f, init, xs) {
@@ -17,50 +17,66 @@ function accumulate_iter(f, init, xs) {
 //7. 
 function hoopify(xs) {
 /* YOUR SOLUTION */
-    let temp = xs;
-    while (!is_null(tail(temp))) {
-        temp = tail(temp);
-    }
-    set_tail(temp, xs);
-    return xs;
+    // let temp = xs; USE COPY AND LAST PAIR
+    // while (!is_null(tail(temp))) {
+    //     temp = tail(temp);
+    // }
+    // set_tail(temp, xs);
+    // return xs;
 }
 //8.
+
+function copy(xs) {
+    return map(x => x, xs);
+}
+function last_pair(xs) {
+    return is_null(tail(xs))
+        ? xs
+        : last_pair(tail(xs));
+}
+function list_pair(xs, m) {
+    return m === 0
+           ? xs
+           : list_pair(tail(xs), m - 1);
+}
 function partially_hoopify(xs, m) {
 /* YOUR SOLUTION */
-    let pointer = xs;
+    let temp = copy(xs);
+    let pointer = temp;
     for (m; m > 0; m = m - 1) {
         pointer = tail(pointer);
     }
-    let temp = xs;
-    while(!is_null(tail(temp))) {
-        temp = tail(temp);
-    }
-    set_tail(temp, pointer);
-    return xs;
+
+    let lp = last_pair(temp);
+    set_tail(lp, pointer);
+    return temp;
 }
+const p = partially_hoopify(list(1, 2, 3, 4, 5), 2);
+draw_data(p);
 //9. ???? how to point tail to itself?
 const hh1 = pair(undefined, undefined);
 const hh2 = pair(undefined, undefined);
 const hh3 = pair(undefined, undefined);
 /* YOUR SOLUTION */
 set_head(hh1, hh1);
-set_tail(hh1, tail(hh1));
-const hh2_temp = pair(undefined, tail(hh2));
+set_tail(hh1, hh1);
+const hh2_temp = pair(undefined, hh2);
 set_head(hh2_temp, hh2_temp);
 set_head(hh2, hh2_temp);
-set_tail(hh2, tail(hh2));
-const hh3_temp = pair(head(hh3), tail(hh3));
+set_tail(hh2, hh2);
+const hh3_temp = pair(hh3, hh3);
 set_head(hh3, hh3_temp);
-set_tail(hh3, tail(hh3_temp));
-hh1;
+set_tail(hh3, hh3_temp);
 
 //10.
 function is_hula_hoop(x) {
     return (!is_pair(x) || is_list(x)) 
            ? false
-           : is_hula_hoop(head(x)) && is_hula_hoop(tail(x));
+           : tail(x) === x && head(x) === x;
            
 }
+
+is_hula_hoop(hh2);
 
 //11.
 function identity(n) {
@@ -124,7 +140,6 @@ pair(1, (s, i) => pair(i * head(s), tail(factorials)));
 // fill the following line, only using the names
 // pair, head, tail, factorials, s, i
 /* YOUR SOLUTION */
-scream_ref(factorials, 5); // returns 6
 
 //15.
 const pi_square_series =
@@ -132,9 +147,9 @@ pair(0, (s, i) => pair(head(s) + 6 / math_pow(i, 2), tail(pi_square_series)));
 // fill the following line, only using the names
 // pair, head, tail, pi_square_series, s, i
 /* YOUR SOLUTION */
-scream_ref(pi_square_series, 2); // returns 6
+//scream_ref(pi_square_series, 2); // returns 6
 
-//16.
+//16. ???
 const fibonacci =
     pair(0,
         (s1, ignore) =>
@@ -142,7 +157,7 @@ const fibonacci =
                 (s2, ignore) =>
                     pair(head(s1) + head(s2),
                         (s3, ignore) =>
-                            
+                            tail(s3)
 // fill the following line,
 // only using the names
 // tail, s1, s2, s3
@@ -150,5 +165,5 @@ const fibonacci =
                         )   
                 )
         );
-scream_ref(fibonacci, 7); // returns 13
+//scream_ref(fibonacci, 7); // returns 13
 
