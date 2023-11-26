@@ -70,14 +70,24 @@ set_tail(hh3, hh3_temp);
 
 //10.
 function is_hula_hoop(x) {
-    return (!is_pair(x) || is_list(x)) 
-           ? false
-           : tail(x) === x && head(x) === x;
-           
+    let pairs = null;
+    function check(y) {
+        if (is_pair(y)) {
+            if(!is_null(member(y, pairs))) {
+                return true;
+            } else {
+                pairs = pair(y, pairs);
+                return check(head(y)) && check(tail(y));
+            }
+        } else {
+            return false;
+        }
+    }
+    return check(x);
 }
 
-is_hula_hoop(hh2);
-
+is_hula_hoop(hh3);
+head(hh1) === hh1;
 //11.
 function identity(n) {
 /* YOUR SOLUTION */
@@ -157,7 +167,7 @@ const fibonacci =
                 (s2, ignore) =>
                     pair(head(s1) + head(s2),
                         (s3, ignore) =>
-                            tail(s3)
+                            tail(tail(s1)(s2, 0))(s3, 0)
 // fill the following line,
 // only using the names
 // tail, s1, s2, s3
