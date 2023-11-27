@@ -54,4 +54,3 @@ function perms01(n, m) {
         return append(p0, p1);
     }
 }
-perms01(2, 3);
