@@ -1,76 +1,57 @@
 //1920 finals cs1101s
 //1A.T  B.F  C.T  D.T
-//2A.F  B.T  C.F  D.T
-//3A.T  B.T  C.T. D.T
-//4B.F  C.T  D.T. E.T  F.F
+//2A.F  B.T  C.F  D.T WRONG - FFFT
+//3A.T  B.T  C.T. D.T RIGHT
+//4B.F  C.T  D.T. E.T  F.F F-T
 //6A.
 function tree_to_arraytree(xs) {
-    function helper(ys) {
-        if (is_null(tail(ys))) {
-            return [tree_to_arraytree(head(ys))];
+    if (is_number(xs)) {
+        return xs;
+    } else {
+        const a = [];
+        let i = 0;
+        while (!is_null(xs)) {
+            a[i] = tree_to_arraytree(head(xs));
+            i = i + 1;
+            xs = tail(xs);
         }
-        if (is_list(head(ys))) {
-            return [tree_to_arraytree(head(ys)), tree_to_arraytree(list_ref(ys, 1))];
-        } else {
-            let temp = [];
-            for (let i = 0; i < length(ys); i = i + 1) {
-                temp[i] = list_ref(ys, i);
-            }
-            return temp;
-        }
+        return a;
     }
-    return helper(xs);
 }
 // tree_to_arraytree(list(list(10, 20, 30), list(30, 20, 10)));
 // returns [[10, 20, 30], [30, 20, 10]]
 
 //6B.
 function arraytree_to_tree(a) {
-    if (is_array(a[0])) {
-        return list(arraytree_to_tree(a[0]), arraytree_to_tree(a[1]));
+    if (is_number(a)) {
+        return a;
     } else {
-        let temp = null;
-        for (let i = 0; !is_undefined(a[i]); i = i + 1) {
-            temp = pair(a[i], temp);
+        let xs = null;
+        for (let i = array_length(a) - 1; i >= 0; i = i - 1) {
+            xs = pair(arraytree_to_tree(a[i]), xs);
         }
-        return reverse(temp);
+        return xs;
     }
 }
-// display_list(arraytree_to_tree([[10, 20, 30], [30, 20, 10]]));
+display_list(arraytree_to_tree([[10, 20, 30], [30, 20, 10]]));
 
 //6C.
 function array_permutations(a) {
-    function choose(n, arr) {
-        if (is_undefined(arr[n])) {
-            return arr;
-        } else {
-            for (n; n <= array_length(arr); n = n + 1) {
-                arr[n] = arr[n + 1];
-            }
-        }
-        return arr;
-    }
-    
+    //return tree_to_arraytree(permutations(arraytree_to_tree(a)));
 }
 
 //8.
 function perms01(n, m) {
-    if (n === 0) {
-        let temp = null;
-        for (m; m > 0; m = m - 1) {
-            temp = pair(1, temp);
-        }
-        return temp;
-    } else if (m === 0) {
-        let temp = null;
-        for (n; n > 0; n = n - 1) {
-            temp = pair(0, temp);
-        }
-        return temp;
+    if (n === 0 && m === 0) {
+        return list(null); //list(null) => map works
     } else {
-        const a = pair(0, perms01(n - 1, m));
-        const b = pair(1, perms01(n, m - 1));
-        return list(a, b);
+        const p0 = n > 0
+                 ? map(p => pair(0, p), perms01(n - 1, m))
+                 : null; //null => map does not work
+        const p1 = m > 0
+                 ? map(p => pair(1, p), perms01(n, m - 1))
+                 : null;
+        return append(p0, p1);
     }
 }
-perms01(1,2);
+perms01(2, 3);
